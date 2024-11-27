@@ -1,0 +1,42 @@
+name: Build and Push Docker Image
+
+on:
+  push:
+    branches:
+      - main  # O la rama que prefieras
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      # Paso 1: Configurar Docker
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v2
+
+      # Paso 2: Iniciar sesión en Docker Hub o GitHub Container Registry
+      - name: Log in to Docker Hub
+        uses: docker/login-action@v2
+        with:
+          username: ${{ secrets.DOCKER_USERNAME }}  # Configura tu usuario en los Secrets
+          password: ${{ secrets.DOCKER_PASSWORD }}  # Configura tu token de Docker Hub en los Secrets
+
+      # Si usas GitHub Container Registry, puedes reemplazar la acción anterior por:
+      # - name: Log in to GitHub Container Registry
+      #   uses: docker/login-action@v2
+      #   with:
+      #     username: ${{ github.actor }}
+      #     password: ${{ secrets.GITHUB_TOKEN }}
+
+      # Paso 3: Compilar la imagen
+      - name: Build Docker image
+        run: |
+          docker build -t ${{ secrets.DOCKER_USERNAME }}/mangoswebv4:latest .  # Nombre de la imagen y etiqueta
+
+      # Paso 4: Etiquetar y subir la imagen al registry (Docker Hub o GHCR)
+      - name: Push Docker image
+        run: |
+          docker push ${{ secrets.DOCKER_USERNAME }}/mangoswebv4:latest  # Nombre de la imagen y etiqueta
+
+      # Si usas GHCR, el nombre de la imagen sería algo como:
+      # docker push ghcr.io/${{ github.repository_owner }}/mangoswebv4:latest
