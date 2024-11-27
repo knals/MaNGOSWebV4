@@ -18,7 +18,7 @@ RUN apt-get update && apt-get install -y \
 WORKDIR /var/www/html
 
 # Clona el repositorio de MaNGOSWebV4
-RUN git clone https://github.com/knals/MaNGOSWebV4.git . \
+RUN git clone https://github.com/knals/mangoswebv4.git . \
     && rm -rf .git
 
 # Cambiar permisos para el directorio de trabajo
