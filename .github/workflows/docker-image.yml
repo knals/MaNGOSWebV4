@@ -18,8 +18,9 @@ jobs:
       - name: Log in to Docker Hub
         uses: docker/login-action@v2
         with:
-          username: ${{ secrets.DOCKER_USERNAME }}  # Configura tu usuario en los Secrets
-          password: ${{ secrets.DOCKER_PASSWORD }}  # Configura tu token de Docker Hub en los Secrets
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GHCR_PAT }} # Asegúrate de que este secreto esté configurado
 
       # Si usas GitHub Container Registry, puedes reemplazar la acción anterior por:
       # - name: Log in to GitHub Container Registry
@@ -31,12 +32,12 @@ jobs:
       # Paso 3: Compilar la imagen
       - name: Build Docker image
         run: |
-          docker build -t ${{ secrets.DOCKER_USERNAME }}/mangoswebv4:latest .  # Nombre de la imagen y etiqueta
+          docker build -t ${{ github.repository_owner }}/mangoswebv4:latest .  # Nombre de la imagen y etiqueta
 
       # Paso 4: Etiquetar y subir la imagen al registry (Docker Hub o GHCR)
       - name: Push Docker image
         run: |
-          docker push ${{ secrets.DOCKER_USERNAME }}/mangoswebv4:latest  # Nombre de la imagen y etiqueta
+          docker push ${{ github.repository_owner }}/mangoswebv4:latest  # Nombre de la imagen y etiqueta
 
       # Si usas GHCR, el nombre de la imagen sería algo como:
       # docker push ghcr.io/${{ github.repository_owner }}/mangoswebv4:latest
