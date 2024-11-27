@@ -19,13 +19,13 @@ WORKDIR /var/www/html
 
 # Clona el repositorio de MaNGOSWebV4
 RUN git clone https://github.com/knals/MaNGOSWebV4.git . \
-    && mv * /var/www/html/ && rm -rf /var/www/html/.git
+    && rm -rf .git
 
 # Cambiar permisos para el directorio de trabajo
 RUN chown -R www-data:www-data /var/www/html && chmod -R 755 /var/www/html
 
 # Exponer el puerto 80 para Apache
-EXPOSE 82
+EXPOSE 80
 
 # Iniciar el servidor Apache
 CMD ["apache2-foreground"]
