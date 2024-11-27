@@ -29,6 +29,6 @@ jobs:
         with:
           use-feature: "buildx"
       - name: Build Docker image
-        run: docker buildx build --platform linux/amd64,linux/arm64 -t ghcr.io/${{ github.repository_owner }}/mangoswebv4:latest . --push
+        run: docker buildx build --platform linux/arm64 -t ghcr.io/${{ github.repository_owner }}/mangoswebv4:latest . --push
 
 
