@@ -1,6 +1,5 @@
 FROM arm64v8/php:7.4-apache
 
-
 # Instalar extensiones necesarias para PHP y otras dependencias
 RUN apt-get update && apt-get install -y \
     git \
