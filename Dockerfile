@@ -1,4 +1,4 @@
-FROM arm64v8/nginx:stable-alpine
+FROM arm64v8/php:7.4-apache
 
 
 # Instalar extensiones necesarias para PHP y otras dependencias
