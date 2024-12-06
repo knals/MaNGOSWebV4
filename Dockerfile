@@ -13,6 +13,12 @@ RUN apt-get update && apt-get install -y \
     && docker-php-ext-install gd mbstring zip mysqli pdo pdo_mysql \
     && apt-get clean && rm -rf /var/lib/apt/lists/*
 
+# Habilita módulos necesarios de Apache
+RUN a2enmod rewrite
+
+# Copia el archivo php.ini para configurar extensiones y otras opciones
+COPY php.ini /usr/local/etc/php/
+
 # Establece el directorio de trabajo
 WORKDIR /var/www/html
 
